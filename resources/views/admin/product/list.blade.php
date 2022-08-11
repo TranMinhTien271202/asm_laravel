@@ -15,10 +15,8 @@
             <tr>
                 <th>ID</th>
                 <th>Tên</th>
-                <th>Ngày Sinh</th>
+                <th>Price</th>
                 <th>Ảnh</th>
-                <th>Email</th>
-                {{-- <th>Status</th> --}}
                 <th>Sửa</th>
                 <th>Xóa</th>
             </tr>
@@ -28,12 +26,8 @@
             <tr>
                 <td>{{$item->id}}</td>
                 <td>{{$item->name}}</td>
-                {{-- <td>{{$item->birthday}}</td>
-                {{-- nếu chỉ select và validate truy vấn thì ở đây mới thực hiện trươc --}}
-                {{-- N+1 Query --}}
-                {{-- <td>{{$item->room->name}}</td> --}}
+                <td>{{number_format($item->price)}}</td>
                 <td><img src="{{asset($item->image)}}" width="70px" alt=""></td>
-                {{-- <td><input class="btn btn-primary" type="submit" value="{{$item->status}}"> --}}
 
                 <td>
                     <form action="{{route('users.edit_pro', ['id'=>$item->id])}}" method="POST">
