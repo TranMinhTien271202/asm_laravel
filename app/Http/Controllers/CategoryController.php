@@ -6,6 +6,7 @@ use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -60,4 +61,13 @@ class CategoryController extends Controller
         ]);
         return redirect()->route('users.list');
     }
-}
+    public function search_cate(Request $request)
+    {
+        $category = Category::all();
+        $product = Product::where('cate_id', $request->id)->with('category')->paginate(10);
+            return view('user.product.shop', [
+                'category' => $category,
+                'product' => $product,
+            ]);
+        }
+    }

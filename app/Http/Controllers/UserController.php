@@ -7,26 +7,28 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function Home(){
+    public function Home()
+    {
         $users = User::select('*')
-        ->where('id', '>',3)
-        // ->where('id', '<=',7)
-        ->paginate(5);
+            ->where('id', '>', 3)
+            // ->where('id', '<=',7)
+            ->paginate(5);
         $users->birthday = date('Y-m-d', strtotime($users->birthday));
         return view('user.index', [
             'user_list' => $users
         ]);
     }
-    public function index(){
+    public function index()
+    {
         // dd($room, $roomChildren, $roomoneParent);
         // // dd($users, $room);
         // $users = User::all();
         // dd($users);
         // $users = User::paginate(5); // phân quyền hiển thị mỗi trang chỉ 5 sản phẩm
         $users = User::select('*')
-        // ->with('room') //truy vấn thêm quan hệ trước khi trả về kết quả ra view
-        // ->where('id', '<=',7)
-        ->paginate(5);
+            // ->with('room') //truy vấn thêm quan hệ trước khi trả về kết quả ra view
+            // ->where('id', '<=',7)
+            ->paginate(5);
         // dd($users);
         return view('admin.user.list', ['user_list' => $users]);
     }
@@ -36,10 +38,12 @@ class UserController extends Controller
         return redirect()->route('users.list')->with('thongbao', 'Sửa sản phẩm thành công');
     }
 
-    public function create(){
+    public function create()
+    {
         return view('admin.user.create');
     }
-    public function store(Request $request){ //khai báo UserUpdateRequest thay Request để lấy validate
+    public function store(Request $request)
+    { //khai báo UserUpdateRequest thay Request để lấy validate
         // $request->validate([
         //     'name' => 'required|min:6',
         //     'email' => 'email|max:32'
@@ -50,22 +54,21 @@ class UserController extends Controller
         $users = new User();
         $users->fill($request->all());
         $users->password = bcrypt($request->password);
-        if($request->hasFile('avatar')){
+        if ($request->hasFile('avatar')) {
             $avatar = $request->avatar;
             $avatarName = $avatar->hashName();
-            $avatarName = $request->username .'_'. $avatarName;
+            $avatarName = $request->username . '_' . $avatarName;
 
             $users->avatar = $avatar->storeAs('images/users', $avatarName);
             //storage
-        }else{
+        } else {
             $users->avatar = '';
-            
         }
         $users->save();
         return redirect()->route('users.list')->with('thongbao', 'Sửa sản phẩm thành công');
     }
     public function edit(User $id)
-    {   
+    {
         $id->birthday = date('Y-m-d', strtotime($id->birthday)); // chuyển sang dạng y-m-d
         return view('admin.user.edit', [
             // 'rooms'=> $room
@@ -98,5 +101,16 @@ class UserController extends Controller
             'room_id' => $request->room_id,
         ]);
         return redirect()->route('users.list')->with('thongbao', 'Sửa sản phẩm thành công');
+    }
+    public function status(User $users, $status)
+    {
+        // dd($users, $status);
+        if ($users->status == 1) {
+            $users->update(['status' => 0]);
+            return redirect()->back();
+        } else {
+            $users->update(['status' => 1]);
+            return redirect()->back();
+        }
     }
 }

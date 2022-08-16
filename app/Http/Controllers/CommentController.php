@@ -25,4 +25,8 @@ class CommentController extends Controller
         Comment::destroy($request->id);
         return back();
     }
+    public function listcmt(){
+        $comment = Comment::with('product')->paginate(2);
+        return view('admin.comment.listcmt', ['comment'=>$comment]);
+    }
 }

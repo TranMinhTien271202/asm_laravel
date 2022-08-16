@@ -28,7 +28,6 @@
                 <td>{{$item->name}}</td>
                 <td>{{number_format($item->price)}}</td>
                 <td><img src="{{asset($item->image)}}" width="70px" alt=""></td>
-
                 <td>
                     <form action="{{route('users.edit_pro', ['id'=>$item->id])}}" method="POST">
                         @csrf

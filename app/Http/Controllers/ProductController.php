@@ -47,7 +47,7 @@ class ProductController extends Controller
             $cart = Cart::where('users_id', Auth::user()->id)->get();
             $user = Auth::user()->id;
             $comment = Comment::join('users', 'users.id', '=', 'comment.users_id')
-                ->select('comment.*', 'users.name as name_user')
+                ->select('comment.*', 'users.email as email_user')
                 ->where('product_id', $request->id)
                 ->get();
             return view('user.product.shop-detail', [

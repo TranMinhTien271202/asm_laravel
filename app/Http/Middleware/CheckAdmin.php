@@ -18,7 +18,6 @@ class CheckAdmin
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-
         if( $user && $user->role === 0 ){
             return $next($request);
         }

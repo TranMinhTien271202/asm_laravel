@@ -427,9 +427,9 @@
                                             @foreach ($comment as $item)
                                                 <div class="comment" style="margin: 30px">
                                                     <div class="avatar">
-                                                        <img src="https://cdn.pixabay.com/photo/2014/03/24/13/49/avatar-294480_960_720.png" alt=""
-                                                            width="30px">
-                                                        <span style="font-size: 20px">{{ $item->name_user }}</span>
+                                                        <img src="https://cdn.pixabay.com/photo/2014/03/24/13/49/avatar-294480_960_720.png"
+                                                            alt="" width="30px">
+                                                        <span style="font-size: 20px">{{ $item->email_user }}</span>
                                                         {{ $item->created_at }}
                                                         <div class="cmt" style="margin: 30px">
                                                             <div class="cmt">
@@ -442,9 +442,7 @@
                                                                 style="color: red"><button>Xóa</button></a>
                                                         </div>
                                                     </div>
-                                                    
                                                     <div class="date">
-
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -462,7 +460,6 @@
                                                         <button class="btn btn-normal button">Submit</button>
                                                     </ul>
                                                 </fieldset>
-                                            </form>
                                             </form>
                                         </div>
                                     </div>

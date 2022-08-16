@@ -10,15 +10,15 @@ class Oder extends Model
     use HasFactory;
 
     use HasFactory;
-    public $table = "detailcart";
+    public $table = "order";
     protected $fillable = [
         'name',
         'phone',
-        'desc',
+        'note',
         'status',
-        'users_id',
         'address',
-        'cart_id',
+        'totalall',
+        'quantily',
         'product_id'
     ];
     public function product(){
@@ -26,8 +26,5 @@ class Oder extends Model
     }
     public function user(){
         return $this->belongsTo(User::class, 'users_id', 'id');
-    }
-    public function order_details(){
-        return $this->hasMany(OrderDetail::class, 'cart_id', 'id');
     }
 }

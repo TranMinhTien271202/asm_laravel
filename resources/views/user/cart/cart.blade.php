@@ -36,25 +36,28 @@
                         <h4 class="style">PROCEED TO CHECKOUT</h4>
                     </div>
                     <div class="content col-md-12">
-                            <ul class="title clearfix">
-                                <li class="text1"><a href="#">PRODUCT NAME</a></li>
-                                <li class="text2"><a href="#">UNIT PRICE</a></li>
-                                <li class="text2"><a href="#">QTY</a></li>
-                                <li class="text2"><a href="#">SUB TOTAL</a></li>
+                        <ul class="title clearfix">
+                            <li class="text1"><a href="#">PRODUCT NAME</a></li>
+                            <li class="text2"><a href="#">UNIT PRICE</a></li>
+                            <li class="text2"><a href="#">QTY</a></li>
+                            <li class="text2"><a href="#">SUB TOTAL</a></li>
+                        </ul>
+                        @foreach ($cart as $item)
+                            <ul class="nav-mid clearfix">
+                                <li class="image"><a href="#"><img src="{{ $item->product->image }}" width="100px"
+                                            alt=""></a></li>
+                                <li class="item-title"><a href="#">{{ $item->product->name }}</a></li>
+                                <li class="icon1"></li>
+                                <li class="price1">{{ number_format($item->product->price) }}</li>
+                                <li class="number">{{ $item->quantily }}</li>
+                                <li class="price2">{{ number_format($total = $item->quantily * $item->product->price) }}
+                                </li>
+                                <input type="hidden"
+                                    name="{{ number_format($totalall += $item->quantily * $item->product->price) }}"
+                                    value="" id="">
+                                <a href="{{ route('giohang.delete_cart', $item->id) }}"><button>Xóa</button></a>
                             </ul>
-                            @foreach ($cart as $item)
-                                <ul class="nav-mid clearfix">
-                                    <li class="image"><a href="#"><img src="{{ $item->product->image }}" width="100px" alt=""></a></li>
-                                    <li class="item-title"><a href="#">{{ $item->product->name }}</a></li>
-                                    <li class="icon1"></li>
-                                    <li class="price1">{{ number_format($item->product->price) }}</li>
-                                    <li class="number">{{ $item->quantily }}</li>
-                                    <li class="price2">{{ number_format($total = $item->quantily * $item->product->price) }}</li>
-                                    <input type="hidden" name="{{ number_format($totalall += $item->quantily * $item->product->price) }}" value="" id="">
-                                    <a href="{{ route('giohang.delete_cart', $item->id) }}"><button
-                                        >Xóa</button></a>
-                                </ul>
-                            @endforeach
+                        @endforeach
                         <ul class="nav-bot clearfix">
                             <li class="continue"><a href="/">Continue shopping</a></li>
                             <li class="clear"><a href="#">clear shopping cart</a></li>
@@ -69,14 +72,14 @@
                                     <span class="style-bd">Apply coupon</span>
                                 </div>
                             </form>
-                            <form class="form-right col-md-4">
+                            <form class="form-right col-md-4" action="{{route('giohang.order')}}">
+                                @csrf
                                 <div class="form-bd">
                                     <h3>
                                         <span class="text3">Tổng Tiền:</span>
                                         <span class="text4">{{ number_format($totalall) }}</span>
                                     </h3>
-                                    <a class="main_btn" >Thanh toán</a>
-                                     {{-- href="{{route('giohang.order', $totalall)}}" --}}
+                                    <a href="{{ route('giohang.order')}}"><button>Đặt Hàng</button></a>
                                     <p class="checkout">Checkout with Multiple Addresses</p>
                                 </div>
                             </form>

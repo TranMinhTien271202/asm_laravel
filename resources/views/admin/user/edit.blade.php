@@ -13,10 +13,10 @@
         <label class="form-label">Email address</label>
         <input type="email" class="form-control" name="email" value="{{$user->email}}" aria-describedby="emailHelp">
     </div>
-    <div class="form-group">
+    {{-- <div class="form-group">
         <label for="exampleInputPassword1" class="form-label">Password</label>
         <input type="password" class="form-control" value="{{$user->password}}" name="password">
-    </div>
+    </div> --}}
     <div class="form-group">
         <label class="form-label">birthday</label>
         <input type="birthday" class="form-control" value="{{$user->birthday}}" name="birthday" aria-describedby="birthday">

@@ -19,7 +19,7 @@
     </div>
     <div class="form-group">
         <label class="form-label">detail</label>
-        <input type="number" class="form-control" name="detail" value="{{$product->detail}}" min="0" aria-describedby="Phone">
+        <input type="text" class="form-control" name="detail" value="{{$product->detail}}" min="0" aria-describedby="Phone">
     </div>
     <div class="form-group">
         <label class="form-label">Ảnh đại diện</label><br>

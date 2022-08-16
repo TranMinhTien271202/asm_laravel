@@ -4,9 +4,11 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckLogin;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,8 +27,16 @@ Route::middleware('auth','admin')->prefix('/admin')->name('users.')->group(funct
     Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('delete'); //name:users.delete
     Route::get('/create', [UserController::class, 'create'])->name('create');
     Route::post('/store', [UserController::class, 'store'])->name('store');
-    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
-    Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
+    // Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
+    // Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
+    // Route::post('/status/{users}&{status}', [UserController::class, 'status'])->name('status');
+});
+Route::middleware('auth','admin')->prefix('/admin')->name('admin.')->group(function () {
+    Route::post('/status/{users}&{status}', [UserController::class, 'status'])->name('status');
+});
+Route::middleware('auth','admin')->prefix('/listOder')->name('users.')->group(function () {
+    Route::get('/', [OderController::class, 'listOder'])->name('listOder');
+    Route::post('/status1/{order}&{status}', [OderController::class, 'status1'])->name('status1');
 });
 Route::middleware('auth','admin')->prefix('/category')->name('users.')->group(function () {
     Route::get('/', [CategoryController::class, 'category'])->name('category');
@@ -43,6 +53,10 @@ Route::middleware('auth','admin')->prefix('/product')->name('users.')->group(fun
     Route::post('/store_pro', [ProductController::class, 'store_pro'])->name('store_pro');
     Route::get('/edit_pro/{id}', [ProductController::class, 'edit_pro'])->name('edit_pro');
     Route::post('/update_pro/{id}', [ProductController::class, 'update_pro'])->name('update_pro');
+    Route::get('/listcmt', [CommentController::class, 'listcmt'])->name('listcmt');
+});
+Route::middleware('auth','admin')->prefix('/comment')->name('users.')->group(function () {
+    Route::get('/', [CommentController::class, 'listcmt'])->name('listcmt');
 });
 Route::prefix('/')->name('users.')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('index');
@@ -61,6 +75,8 @@ Route::middleware([CheckLogin::class])->prefix('/')->name('giohang.')->group(fun
     Route::get('/cart', [CartController::class, 'Cart'])->name('cart');
     Route::post('/addCart/{id}', [CartController::class, 'addCart'])->name('addCart');
     Route::get('/delete_cart/{id}', [CartController::class, 'delete_cart'])->name('delete_cart');
+    Route::get('/order', [OderController::class, 'order'])->name('order');
+    Route::post('/oderCart', [OderController::class, 'oderCart'])->name('oderCart');
 });
 Route::prefix('/')->name('auth.')->group(function () {
     Route::get('/login', [LoginController::class, 'Login'])->name('login');
